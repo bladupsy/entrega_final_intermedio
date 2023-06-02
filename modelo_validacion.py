@@ -13,10 +13,8 @@ class Validations:
             print(ticket, estado, fecha)
             self.conexion.create_ticket(ticket, estado, fecha)
             self.actualizar_treeview(tree)
-            print("Estoy en alta todo ok")
             messagebox.showinfo("Validacion", "Registro creado correctamente")
         else: 
-            print("error en campo producto")
             messagebox.showinfo("Validacion", "Error")
 
     def delete_ticket(self, id):
@@ -41,10 +39,9 @@ class Validations:
             records = tree.get_children()
             for element in records:
                 tree.delete(element)
-
+                
             datos = self.conexion.read_tickets()
             for fila in datos:
-                print(fila)
                 tree.insert("", 0, text=fila[0],
                             values=(fila[1], fila[2], fila[3]))
         except IndexError:

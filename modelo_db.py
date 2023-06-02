@@ -44,10 +44,13 @@ class ConexionDB:
 
     def update_ticket(self, id, ticket, estado, fecha):
         try:
+            print(id, 'Hola')
+            mi_id = int(id)
             data = (id, ticket, estado, fecha)
             sql = "UPDATE tickets SET ticket=?, estado=?, fecha=? WHERE id=?"
             self.cursor.execute(sql, data)
             self.con.commit()
         except IndexError:
             messagebox.showinfo("UPDATE ITEM", "No se pudo actualizar")
+
 

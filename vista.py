@@ -1,6 +1,7 @@
 from tkinter import StringVar, Entry, Tk, ttk, Button, Label
 from tkcalendar import DateEntry
 from modelo_validacion import Validations
+from tkinter.messagebox import *
 
 class Vista:
     def __init__(self, root):
@@ -8,7 +9,7 @@ class Vista:
         self.valid_modelo = Validations()
         self.root.title("Registro de tickets")
 
-        titulo = Label(self.root, text="Registre los tickets", bg="blue", fg="thistle1", height=1, width=60)
+        titulo = Label(self.root, text="Registre los tickets", bg="blue", fg="thistle1", height=1, width=100)
         titulo.grid(row=0, column=0, columnspan=8, padx=1, pady=1, sticky="w")
 
         ticket = Label(self.root, text="Ticket")
@@ -41,10 +42,10 @@ class Vista:
         self.tree.grid(row=10, column=0, columnspan=4)
 
         boton_alta = Button(self.root, text="Crear registro", command=lambda: self.alta(a_val.get(), b_val.get(), c_val.get(), self.tree))
-        boton_alta.grid(row=6, column=1)
+        boton_alta.grid(row=6, column=2)
 
-        boton_modificar = Button(self.root, text="Modificar", command=lambda: self.modificar(a_val.get(), b_val.get(), c_val.get(), self.tree))
-        boton_modificar.grid(row=7, column=1)
+        boton_modificar = Button(self.root, text="Guardar Modificacion", command=lambda: self.modificar(a_val.get(), b_val.get(), c_val.get(), self.tree))
+        boton_modificar.grid(row=7, column=2)
 
         boton_borrar = Button(self.root, text="Borrar", command=lambda: self.borrar(self.tree))
         boton_borrar.grid(row=8, column=1)
@@ -55,9 +56,10 @@ class Vista:
     #TO-DO: modificar
     def modificar(self, ticket, estado, fecha, tree):
         item_select = tree.selection()
+        print(item_select)
         item = tree.item(item_select)
         mi_id = item['text']
-        self.valid_modelo.update(str(ticket), str(mi_id), estado, fecha, tree)
+        self.valid_modelo.update(mi_id, ticket, estado, fecha, tree)
 
     def borrar(self, tree):
         item_select = tree.selection()
@@ -65,4 +67,3 @@ class Vista:
         mi_id = item['text']
         self.valid_modelo.delete_ticket(mi_id)
         tree.delete(item_select)
-
