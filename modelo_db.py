@@ -50,6 +50,8 @@ class ConexionDB:
             sql = "UPDATE tickets SET ticket=?, estado=?, fecha=? WHERE id=?"
             self.cursor.execute(sql, data)
             self.con.commit()
+            self.read_tickets()
+            messagebox.showinfo("UPDATE ITEM", "Se actualizo")
         except IndexError:
             messagebox.showinfo("UPDATE ITEM", "No se pudo actualizar")
 

@@ -23,23 +23,23 @@ class Validations:
             messagebox.showinfo("Validacion", "Ticket borrado correctamente")
         except:
             messagebox.showinfo("Validacion", "Error")
-#TO-DO: modificar
+
     def update(self, id, ticket, estado, fecha, tree):
         patron_regex = "^[A-Za-záéíóú]*$"
         if re.match(patron_regex, ticket):
             print(id, ticket, estado, fecha)
             self.conexion.update_ticket(id, ticket, estado, fecha)  # Agregar el argumento 'id' en la llamada
             self.actualizar_treeview(tree)
-            print("UPDATE, todo ok")
+            messagebox.showinfo("Se modifico", "Ticket modificado correctamente")
         else:
-            print("error en update")
+            messagebox.showinfo("Validacion", "Error")
     
     def actualizar_treeview(self, tree):
         try:
             records = tree.get_children()
             for element in records:
                 tree.delete(element)
-                
+
             datos = self.conexion.read_tickets()
             for fila in datos:
                 tree.insert("", 0, text=fila[0],
